@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AndroidExpress.iml" filepath="$PROJECT_DIR$/AndroidExpress.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MeuPrimeiroPrograma.iml" filepath="$PROJECT_DIR$/MeuPrimeiroPrograma.iml" />
     </modules>
   </component>
 </project>
