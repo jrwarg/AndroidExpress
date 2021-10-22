@@ -29,6 +29,7 @@
             android:inputType="number"
             android:maxEms="100"
             android:maxLength="3"
+            android:minHeight="48dp"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
