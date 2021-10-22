@@ -25,9 +25,10 @@ public class MainActivity extends AppCompatActivity {
     private int minute;
     private int interval;
 
-    private boolean activated;
+    private boolean activated; // declarando uma variavel para o evento de troca de cor do botão
 
     // Classe para ativar pequeno banco de dados local no Android:
+    // Neste caso, quando o usuário retornar ao app, deverá encontrar sua programação anterior novamente...
     // Mode Private -> nenhum app no futuro irá conseguir acessar esses dados
     private SharedPreferences preferences;
 
@@ -47,24 +48,39 @@ public class MainActivity extends AppCompatActivity {
         // Mudar as propriedades para formato relógio 24 horas:
         timePicker.setIs24HourView(true);
 
+        // Estabelecendo o banco de dados para conter os dados digitados do usuário
+        // Na próxima abertura do app é necessário recarregar as últimas informações
         preferences = getSharedPreferences("db", Context.MODE_PRIVATE);
 
         // No primeiro acesso ao banco, o activated ainda não existe, não está criado, então
         // retorna false ...
-        preferences.getBoolean("activated", false);
+        // Buscando a chave para saber se o botão está ativado ou não
+        activated = preferences.getBoolean("activated", false);
+
         // verificar as propriedades para mudar o status:
         if(activated){
+            // Se ativado, mudar a cor do botão
             btnNotify.setText(R.string.pause);
             int color = ContextCompat.getColor(this, android.R.color.black);
             btnNotify.setBackgroundColor(color);
-            activated = true;
+
+            // buscar as propriedades do campo de texto:
+            int interval = preferences.getInt("interval", 0);
+            int hour = preferences.getInt("hour", timePicker.getCurrentHour());
+            int minute = preferences.getInt("minute", timePicker.getCurrentMinute());
+
+            // mudar as propriedades do campo:
+            editMinutes.setText(String.valueOf(interval));// converte o inteiro para string
+            timePicker.setCurrentHour(hour);
+            timePicker.setCurrentMinute(minute);
         }
 
     }
-
-    public void notifyClick(View view) {
+    // EVENTO DE CLICK VIA XML
+    public void notifyClick(View v) {
         // "Escutando" os eventos de touch:
         String sInterval = editMinutes.getText().toString();
+        // Garantindo que o campo de intervalo não está vazio... e mostrando mensagem
         if(sInterval.isEmpty()){
             Toast.makeText(this, R.string.error_msg, Toast.LENGTH_SHORT).show();
             return;
@@ -72,27 +88,28 @@ public class MainActivity extends AppCompatActivity {
 
         hour = timePicker.getCurrentHour();
         minute = timePicker.getCurrentMinute();
-        interval = Integer.parseInt(sInterval);
+        interval = Integer.parseInt(sInterval); // transformando em Int
 
         if(!activated){
-            btnNotify.setText(R.string.pause);
-            int color = ContextCompat.getColor(this, android.R.color.black);
-            btnNotify.setBackgroundColor(color);
-            activated = true;
+            btnNotify.setText(R.string.pause); // mudando o texto do botão quando clicado
+            int color = ContextCompat.getColor(this, android.R.color.black);// retornar um desenhável
+            btnNotify.setBackgroundColor(color); //mudando a cor do botão
+            activated = true; // mudando o status do botão após o click
 
-            // Escrevendo os dados no banco através do editor:
-
+            // Escrevendo os dados no banco através do editor do banco de dados (SharedPreferences):
+            // Salvando os registros digitados pelo usuário num arquivo interno (XML)
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean("activated", true);
             editor.putInt("interval", interval);
             editor.putInt("hour", hour);
             editor.putInt("minute", minute);
-            editor.apply();
+            editor.apply(); // efetivar a escrita no bd
 
 
 
         } else {
             btnNotify.setText(R.string.notify);
+            // classe obrigatória para obter o desenhável: ContextCompat
             int color = ContextCompat.getColor(this, R.color.colorAccent);
             btnNotify.setBackgroundColor(color);
             activated = false;

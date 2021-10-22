@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:hint="@string/hint"
+            android:importantForAutofill="no"
             android:inputType="number"
             android:maxEms="100"
             android:maxLength="3"
@@ -37,7 +38,6 @@
 
 
         <Button
-            android:onClick="notifyClick"
             android:id="@+id/btnNotify"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -45,8 +45,9 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             android:backgroundTint="@color/colorAccent"
+            android:onClick="notifyClick"
             android:text="@string/Notificar"
-            android:textColor="@android:color/white"
+            android:textColor="#546E7A"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
