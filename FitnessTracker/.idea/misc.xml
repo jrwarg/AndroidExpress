@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/bg_button_accent.xml" value="0.2947916666666667" />
         <entry key="app/src/main/res/drawable/ic_baseline_wb_sunny_24.xml" value="0.29583333333333334" />
+        <entry key="app/src/main/res/layout/activity_imc.xml" value="0.2796875" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2796875" />
       </map>
     </option>
