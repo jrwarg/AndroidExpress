@@ -1,11 +1,18 @@
 package co.tiagoaguiar.codelab.fitnesstracker;
 
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
+import static androidx.core.os.LocaleListCompat.create;
 
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -40,11 +47,28 @@ public class ImcActivity extends AppCompatActivity {
             int weight = Integer.parseInt(sWeight);
 
             double result = calculateImc(height, weight);
-            Log.d("teste", "resultado: " + result);
+           // Log.d("teste", "resultado: " + result);
 
             int imcResponseId = imcResponse(result);
 
-            Toast.makeText(ImcActivity.this, R.string.fields_messages, Toast.LENGTH_SHORT).show();
+            // criando um alerta como resposta ao result
+            AlertDialog dialog = new AlertDialog.Builder(ImcActivity.this)
+                    .setTitle(getString(R.string.imc_response, result))
+                    .setMessage(imcResponseId)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .create();
+            dialog.show();
+
+            // Toast.makeText(ImcActivity.this, R.string.fields_messages, Toast.LENGTH_SHORT).show();-> trocado pela criação do alerta
+
+            // ESCONDER O TECLADO: Utilizar o serviço gerenciador -> Métodos do android para gerenciar os serviços
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(editHeight.getWindowToken(), 0);
+            imm.hideSoftInputFromWindow(editWeight.getWindowToken(), 0);
 
 
         }
