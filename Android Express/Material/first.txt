@@ -1,0 +1,15 @@
+JAVA = Uma única linguagem para todos os tipos de dispositivos
+Write once run every where
+Linguagem de alto nível -> mais perto da linguagem Humana
+Linguagem de baixo nível -> não legível para seres humanos
+
+.java -> extensões java => .class compilador => bytecode
+
+jre -> java runtime environment -> ambiente executável para códigos java
+
+jdk -> kit desenvolvimento  -> instruções pré-programadas
+
+desenvolvedor = jdk + jre + IDE
+
+
+
